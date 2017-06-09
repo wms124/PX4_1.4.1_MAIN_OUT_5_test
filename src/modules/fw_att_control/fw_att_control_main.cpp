@@ -1174,7 +1174,15 @@ FixedwingAttitudeControl::task_main()
 				_actuators.control[actuator_controls_s::INDEX_THROTTLE] = _manual.z;
 			}
 
-			_actuators.control[actuator_controls_s::INDEX_FLAPS] = flaps_applied;
+            //DST_Debug:test add a AUX actuators output --> PWM5 output
+            if(_manual.kill_switch == 1)//1-->SWITCH_POS_ON = 1;
+            {
+                _actuators.control[4] = 0.8;
+            } else {
+                _actuators.control[4] = 0;
+            }
+
+            //_actuators.control[actuator_controls_s::INDEX_FLAPS] = flaps_applied;
 			_actuators.control[5] = _manual.aux1;
 			_actuators.control[actuator_controls_s::INDEX_AIRBRAKES] = flaperon_applied;
 			_actuators.control[7] = _manual.aux3;
